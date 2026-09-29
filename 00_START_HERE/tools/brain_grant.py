@@ -59,7 +59,7 @@ def main(argv=None):
         print("READ mode restored.")
     else:
         g = brain_guard.load_grant(root, now)
-        print("READ mode (no valid grant)" if g is None else
+        print("No grant: autonomous areas only" if g is None else
               f"WRITE until {g['expires']} scopes={g['scopes']} transitions={g['transitions']}")
     return 0
 

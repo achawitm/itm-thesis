@@ -10,6 +10,24 @@
     "00_START_HERE/STATE_TRANSITIONS.csv",
     "00_START_HERE/CHAPTER_REGISTRY.csv"
   ],
+  "autonomous_write": [
+    "01_SOURCES/**",
+    "02_EVIDENCE/**",
+    "03_WRITING/TH/**",
+    "04_TEMPLATES/**",
+    "00_START_HERE/handoffs/**",
+    "00_START_HERE/WORK_ITEM_REGISTRY.csv",
+    "00_START_HERE/ARTIFACT_REGISTRY.csv"
+  ],
+  "autonomous_exclude": [
+    "02_EVIDENCE/SYNTHESIS.md"
+  ],
+  "append_only": {
+    "00_START_HERE/WORK_ITEM_REGISTRY.csv": {"registry": "work_items", "require": {"state": "PROPOSED"}},
+    "00_START_HERE/ARTIFACT_REGISTRY.csv": {"registry": "artifacts", "require": {"state": "DRAFT", "sha256": ""}},
+    "01_SOURCES/SOURCE_REGISTRY.csv": {"registry": "sources", "require": {"status": "REGISTERED"}},
+    "02_EVIDENCE/EVIDENCE_TABLE.csv": {"registry": "evidence", "require": {}}
+  },
   "bash_readonly": [
     "ls", "cat", "head", "tail", "wc", "grep", "rg", "diff", "sort", "uniq", "cut", "tr", "nl",
     "pwd", "echo", "printf", "true", "false", "test", "stat", "file", "tree", "date", "which",
@@ -20,7 +38,8 @@
   "bash_extra_allow": [],
   "find_forbidden_flags": ["-delete", "-exec", "-execdir", "-ok", "-okdir", "-fprint", "-fprintf", "-fls"],
   "git_read": ["status", "diff", "log", "show", "ls-files", "rev-parse", "blame", "grep", "describe", "shortlog", "cat-file", "ls-tree"],
-  "git_write": ["add", "commit", "push", "checkout", "switch", "merge", "pull", "fetch", "stash", "tag", "rm", "mv", "branch"],
+  "git_autonomous": ["add", "commit", "push", "fetch"],
+  "git_write": ["checkout", "switch", "merge", "pull", "stash", "tag", "rm", "mv", "branch"],
   "git_path_args": ["rm", "mv"],
   "git_forbidden": ["clean", "restore", "rebase", "config", "filter-branch", "update-ref"],
   "git_forbidden_flags": ["--force", "-f", "--force-with-lease", "--hard", "--no-verify"],
