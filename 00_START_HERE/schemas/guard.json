@@ -1,0 +1,30 @@
+{
+  "deny_write": [
+    ".brain/**",
+    ".claude/**",
+    ".githooks/**",
+    ".github/**",
+    "00_START_HERE/PROJECT_STATE.md",
+    "00_START_HERE/tools/**",
+    "00_START_HERE/schemas/**",
+    "00_START_HERE/STATE_TRANSITIONS.csv",
+    "00_START_HERE/CHAPTER_REGISTRY.csv"
+  ],
+  "bash_readonly": [
+    "ls", "cat", "head", "tail", "wc", "grep", "rg", "diff", "sort", "uniq", "cut", "tr", "nl",
+    "pwd", "echo", "printf", "true", "false", "test", "stat", "file", "tree", "date", "which",
+    "basename", "dirname", "realpath", "sha256sum", "md5sum", "find"
+  ],
+  "bash_write_cmds": ["rm", "mv", "cp", "tee", "touch", "mkdir", "rmdir", "chmod", "ln", "truncate", "install", "dd", "rsync"],
+  "bash_last_arg_only": ["cp", "install", "rsync", "ln"],
+  "bash_extra_allow": [],
+  "find_forbidden_flags": ["-delete", "-exec", "-execdir", "-ok", "-okdir", "-fprint", "-fprintf", "-fls"],
+  "git_read": ["status", "diff", "log", "show", "ls-files", "rev-parse", "blame", "grep", "describe", "shortlog", "cat-file", "ls-tree"],
+  "git_write": ["add", "commit", "push", "checkout", "switch", "merge", "pull", "fetch", "stash", "tag", "rm", "mv", "branch"],
+  "git_path_args": ["rm", "mv"],
+  "git_forbidden": ["clean", "restore", "rebase", "config", "filter-branch", "update-ref"],
+  "git_forbidden_flags": ["--force", "-f", "--force-with-lease", "--hard", "--no-verify"],
+  "python_readonly_tools": ["brain_check.py", "brain_digest.py"],
+  "python_transition_tool": "brain_transition.py",
+  "max_grant_minutes": 480
+}

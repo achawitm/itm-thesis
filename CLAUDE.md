@@ -6,3 +6,4 @@
 - Every claim needs a label: VERIFIED (with locator `p:`, `sec:`, `tbl:`, `fig:`, `para:`), REPORTED, or NOT_VERIFIED.
 - Run `python3 00_START_HERE/tools/brain_check.py` before finishing; a commit that adds transition rows needs a `Transition: <TR-id>` trailer.
 - One-time per clone: `git config core.hooksPath .githooks`.
+- Writes are machine-enforced by the `brain_guard.py` PreToolUse hook. If a call is blocked with "READ mode", stop and ask the Human PI for a grant (`brain_grant.py grant --scope ...`); never look for a workaround. Use one plain command per Bash call (no `$(...)`, heredocs or newlines).
