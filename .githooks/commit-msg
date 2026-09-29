@@ -1,0 +1,11 @@
+#!/bin/sh
+# A commit that adds rows to STATE_TRANSITIONS.csv must carry a "Transition:" trailer;
+# every other commit must not touch the log.
+msg="$1"
+log="00_START_HERE/STATE_TRANSITIONS.csv"
+added=$(git diff --cached -U0 -- "$log" | grep '^+[^+]' | grep -vc '^+transition_id,')
+if [ "$added" -gt 0 ] && ! grep -q '^Transition: ' "$msg"; then
+  echo "commit-msg: $log gains $added row(s); add a 'Transition: <TR-id>[, <TR-id>]' trailer." >&2
+  exit 1
+fi
+exit 0

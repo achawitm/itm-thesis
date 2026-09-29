@@ -1,0 +1,65 @@
+{
+  "chapters": {
+    "path": "00_START_HERE/CHAPTER_REGISTRY.csv",
+    "columns": ["chapter_id", "title", "phase", "th_path", "en_path", "locked_revision", "locked_sha256", "updated_at"],
+    "id": "chapter_id",
+    "id_pattern": "^CH-\\d{2}$",
+    "required": ["chapter_id", "title", "phase", "th_path"],
+    "enums": {
+      "phase": ["TH_DRAFT", "TH_REVIEW", "TH_LOCKED", "TH_REVISION", "EN_TRANSLATE", "EN_REVIEW", "EN_LOCKED"]
+    }
+  },
+  "work_items": {
+    "path": "00_START_HERE/WORK_ITEM_REGISTRY.csv",
+    "columns": ["work_item_id", "title", "type", "chapter_id", "state", "updated_at"],
+    "id": "work_item_id",
+    "id_pattern": "^WI-\\d{4}$",
+    "required": ["work_item_id", "title", "type", "state"],
+    "enums": {
+      "type": ["WRITING", "EVIDENCE", "SOURCE", "PARTICIPANT_DATA", "ADMIN"],
+      "state": ["PROPOSED", "ACTIVE", "BLOCKED", "DONE", "CANCELLED"]
+    }
+  },
+  "artifacts": {
+    "path": "00_START_HERE/ARTIFACT_REGISTRY.csv",
+    "columns": ["artifact_id", "path", "kind", "state", "sha256", "chapter_id", "updated_at"],
+    "id": "artifact_id",
+    "id_pattern": "^ART-\\d{4}$",
+    "required": ["artifact_id", "path", "kind", "state"],
+    "enums": {
+      "kind": ["DRAFT_TH", "DRAFT_EN", "SYNTHESIS", "TEMPLATE", "INSTRUMENT", "PARTICIPANT_DATA", "OTHER"],
+      "state": ["DRAFT", "APPROVED", "LOCKED", "SUPERSEDED"]
+    }
+  },
+  "sources": {
+    "path": "01_SOURCES/SOURCE_REGISTRY.csv",
+    "columns": ["source_id", "citation_key", "title", "authors", "year", "doi", "source_type", "status", "path"],
+    "id": "source_id",
+    "id_pattern": "^SRC-\\d{4}$",
+    "required": ["source_id", "citation_key", "title", "source_type", "status"],
+    "enums": {
+      "source_type": ["JOURNAL", "BOOK", "REPORT", "WEB", "OTHER"],
+      "status": ["REGISTERED", "VERIFIED", "SUPERSEDED", "RETRACTED"]
+    }
+  },
+  "evidence": {
+    "path": "02_EVIDENCE/EVIDENCE_TABLE.csv",
+    "columns": ["evidence_id", "source_id", "claim", "label", "locator", "reported_by", "chapter_id"],
+    "id": "evidence_id",
+    "id_pattern": "^EV-\\d{5}$",
+    "required": ["evidence_id", "source_id", "claim", "label"],
+    "enums": {
+      "label": ["VERIFIED", "REPORTED", "NOT_VERIFIED"]
+    }
+  },
+  "transitions": {
+    "path": "00_START_HERE/STATE_TRANSITIONS.csv",
+    "columns": ["transition_id", "timestamp", "entity_type", "entity_id", "from_state", "to_state", "actor", "approved_by", "note", "prev_hash", "row_hash"],
+    "id": "transition_id",
+    "id_pattern": "^TR-\\d{8}T\\d{6}Z-[0-9a-f]{4}$",
+    "required": ["transition_id", "timestamp", "entity_type", "entity_id", "from_state", "to_state", "actor", "prev_hash", "row_hash"],
+    "enums": {
+      "entity_type": ["CHAPTER", "WORK_ITEM", "ARTIFACT"]
+    }
+  }
+}

@@ -1,0 +1,5 @@
+#!/bin/sh
+# Runs the full validator against the working tree (it is fast). CI is the real gate;
+# this hook can be bypassed with --no-verify.
+root=$(git rev-parse --show-toplevel)
+exec python3 "$root/00_START_HERE/tools/brain_check.py" --root "$root"

@@ -1,0 +1,57 @@
+{
+  "actor_pattern": "^(PI|AI:[A-Za-z0-9_.-]+)$",
+  "locator_pattern": "^(p|pp|sec|tbl|fig|para):\\S.*$",
+  "entities": {
+    "CHAPTER": {
+      "registry": "chapters",
+      "state_column": "phase",
+      "initial": "TH_DRAFT",
+      "transitions": {
+        "TH_DRAFT": ["TH_REVIEW"],
+        "TH_REVIEW": ["TH_DRAFT", "TH_LOCKED"],
+        "TH_LOCKED": ["TH_REVISION", "EN_TRANSLATE"],
+        "TH_REVISION": ["TH_REVIEW"],
+        "EN_TRANSLATE": ["EN_REVIEW", "TH_LOCKED"],
+        "EN_REVIEW": ["EN_TRANSLATE", "EN_LOCKED"],
+        "EN_LOCKED": []
+      },
+      "pi_required": ["*>TH_LOCKED", "TH_LOCKED>TH_REVISION", "*>EN_TRANSLATE", "*>EN_LOCKED"]
+    },
+    "WORK_ITEM": {
+      "registry": "work_items",
+      "state_column": "state",
+      "initial": "PROPOSED",
+      "transitions": {
+        "PROPOSED": ["ACTIVE", "CANCELLED"],
+        "ACTIVE": ["BLOCKED", "DONE", "CANCELLED"],
+        "BLOCKED": ["ACTIVE", "CANCELLED"],
+        "DONE": [],
+        "CANCELLED": []
+      },
+      "pi_required": ["PROPOSED>ACTIVE", "*>DONE"]
+    },
+    "ARTIFACT": {
+      "registry": "artifacts",
+      "state_column": "state",
+      "initial": "DRAFT",
+      "transitions": {
+        "DRAFT": ["APPROVED", "SUPERSEDED"],
+        "APPROVED": ["DRAFT", "LOCKED"],
+        "LOCKED": ["SUPERSEDED"],
+        "SUPERSEDED": []
+      },
+      "pi_required": ["DRAFT>APPROVED", "*>LOCKED", "*>SUPERSEDED"]
+    }
+  },
+  "translation_gate": {
+    "chapters": ["CH-01", "CH-02", "CH-03"],
+    "satisfied_phases": ["TH_LOCKED", "EN_TRANSLATE", "EN_REVIEW", "EN_LOCKED"],
+    "en_phases": ["EN_TRANSLATE", "EN_REVIEW", "EN_LOCKED"],
+    "locked_phases": ["TH_LOCKED", "EN_TRANSLATE", "EN_REVIEW", "EN_LOCKED"],
+    "en_dir": "03_WRITING/EN",
+    "en_exempt_dir": "03_WRITING/EN/_prep"
+  },
+  "ethics": {
+    "participant_data_dirs": ["03_WRITING/instruments/participant_data"]
+  }
+}

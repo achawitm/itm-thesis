@@ -1,0 +1,4 @@
+chapter_id,title,phase,th_path,en_path,locked_revision,locked_sha256,updated_at
+CH-01,Introduction,TH_DRAFT,03_WRITING/TH/ch01.md,03_WRITING/EN/ch01.md,,,
+CH-02,Literature Review,TH_DRAFT,03_WRITING/TH/ch02.md,03_WRITING/EN/ch02.md,,,
+CH-03,Methodology,TH_DRAFT,03_WRITING/TH/ch03.md,03_WRITING/EN/ch03.md,,,
